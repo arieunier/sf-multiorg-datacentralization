@@ -22,7 +22,7 @@ SERVICE_STRUCTURE = {'ServiceName':SERVICE_NAME,
 
 def treatMessage(dictValue):
     # utils.serviceTracesAndNotifies(dictValue, SERVICE_NAME, SERVICE_NAME + ' - Process Started', True)
-    
+    # will log
     LOGGER.info(dictValue)
     # add your logic here
    
