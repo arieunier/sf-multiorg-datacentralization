@@ -25,35 +25,37 @@ def treatMessage(dictValue):
     # will log
     
     LOGGER.info(dictValue)
-    sqlRequest = """insert into consolidated.opportunities (sfopportunityid, sfaccountid, 
-                            opportunityname, opportunityamount, 
-                            opportunitystage, opportunityfiscalyear, opportunityfiscalquarter)
-    values (%(sfopportunityid)s, %(sfaccountid)s, 
-                            %(opportunityname)s, %(opportunityamount)s, 
-                            %(opportunitystage)s, %(opportunityfiscalyear)s, %(opportunityfiscalquarter)s)
-    on conflict (sfopportunityid)
-    do update set
-        sfaccountid = %(sfaccountid)s, 
-        opportunityname= %(opportunityname)s, 
-        opportunityamount= %(opportunityamount)s, 
-        opportunitystage= %(opportunitystage)s, 
-        opportunityfiscalyear= %(opportunityfiscalyear)s, 
-        opportunityfiscalquarter=%(opportunityfiscalquarter)s
+    # opportunity object
+    if (dictValue['payload']['source']['table'] == 'opportunity'):
+        sqlRequest = """
+        insert into consolidated.opportunities (sfopportunityid, sfaccountid, 
+                                opportunityname, opportunityamount, 
+                                opportunitystage, opportunityfiscalyear, opportunityfiscalquarter)
+        values (%(sfopportunityid)s, %(sfaccountid)s, 
+                                %(opportunityname)s, %(opportunityamount)s, 
+                                %(opportunitystage)s, %(opportunityfiscalyear)s, %(opportunityfiscalquarter)s)
+        on conflict (sfopportunityid)
+        do update set
+            sfaccountid = %(sfaccountid)s, 
+            opportunityname= %(opportunityname)s, 
+            opportunityamount= %(opportunityamount)s, 
+            opportunitystage= %(opportunitystage)s, 
+            opportunityfiscalyear= %(opportunityfiscalyear)s, 
+            opportunityfiscalquarter=%(opportunityfiscalquarter)s
+        """
 
-    """
-
-    attributes = {
-        'sfopportunityid' : dictValue['payload']['after']['sfid'],
-        'sfaccountid' : dictValue['payload']['after']['accountid'],
-        'opportunityname': dictValue['payload']['after']['name'],
-        'opportunityamount': dictValue['payload']['after']['amount'],
-        'opportunitystage': dictValue['payload']['after']['stagename'],
-        'opportunityfiscalyear': dictValue['payload']['after']['fiscalyear'],
-        'opportunityfiscalquarter': dictValue['payload']['after']['fiscalquarter' ]}
-      
-    # executes
-    postgres.execRequest(sqlRequest, attributes, isInsert=True)
-    # add your logic here
+        attributes = {
+            'sfopportunityid' : dictValue['payload']['after']['sfid'],
+            'sfaccountid' : dictValue['payload']['after']['accountid'],
+            'opportunityname': dictValue['payload']['after']['name'],
+            'opportunityamount': dictValue['payload']['after']['amount'],
+            'opportunitystage': dictValue['payload']['after']['stagename'],
+            'opportunityfiscalyear': dictValue['payload']['after']['fiscalyear'],
+            'opportunityfiscalquarter': dictValue['payload']['after']['fiscalquarter' ]}
+        
+        # executes
+        postgres.execRequest(sqlRequest, attributes, isInsert=True)
+   
    
     # utils.serviceTracesAndNotifies(dictValue, SERVICE_NAME, SERVICE_NAME + ' - Process Ended', True)
 
