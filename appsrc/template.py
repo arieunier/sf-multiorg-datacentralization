@@ -27,7 +27,7 @@ def treatMessage(dictValue):
     LOGGER.info(dictValue)
     sqlRequest = """insert into consolidated.opportunities (sfopportunityid, sfaccountid, 
                             opportunityname, opportunityamount, 
-                            opportunitystage, opportunityfiscalyear, opportunityfiscalquarter
+                            opportunitystage, opportunityfiscalyear, opportunityfiscalquarter)
     values (%(sfopportunityid)s, %(sfaccountid)s, 
                             %(opportunityname)s, %(opportunityamount)s, 
                             %(opportunitystage)s, %(opportunityfiscalyear)s, %(opportunityfiscalquarter)s)
