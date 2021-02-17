@@ -1,6 +1,6 @@
 {
-  "name": "Micro Service Template",
-  "description" : "Reacts to an incoming Micro Service message on a given topic, kafka or rabbitmq.You can reuse an existing kafka/rabbit or deploy a new one in this app.",
+  "name": "multi org data centralisation using data streaming connector",
+  "description" : "multi org data centralisation using data streaming connector",
   "repository":"https://github.com/arieunier/DC-MicroService-Template",
   "keywords": ["python", "kafka"], 
   "scripts": {
@@ -12,6 +12,8 @@
     }
   },
   "addons": [
+    {"plan": "heroku-postgresql:private-0"},
+    {"plan": "heroku-kafka:private-standard-0"},
     {"plan": "timber-logging:free"}
   ],
   "buildpacks": [
@@ -23,7 +25,7 @@
     {
       "QUEUING_SYSTEM": {
         "Description" : "Which system to use for the queuing system: values are KAFKA/CLOUDAMQP. Will default to CLOUDAMQP",
-        "value" : "CLOUDAMQP",
+        "value" : "Kafka",
         "required" : true
       },
       "LOG_LEVEL": {
@@ -32,9 +34,22 @@
         "required" : true
       },
       "SUBSCRIBE_CHANNEL": {
-        "Description" : "name of the channel the service must connect to when starting",
+        "Description" : "name of the channels the service must connect to when starting, comma separated with ",
         "value" : "fill me",
+        "required" : true
+      },
+      "KAFKA_PREFIX": {
+        "Description" : "kafka prefix",
+        "value" : "fill me after kafka creation",
+        "required" : true
+      },
+      "KAFKA_USE_GROUP": {
+        "Description" : "use kafka consumer groups",
+        "value" : "True",
         "required" : true
       }
     }
 }
+
+
+
