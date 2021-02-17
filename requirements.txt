@@ -1,5 +1,5 @@
 --extra-index-url https://pypi.fury.io/h_app137403353/
-dclibs==0.0.3
+dclibs==0.0.6
 urllib3
 ujson
 uuid

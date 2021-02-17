@@ -1,14 +1,16 @@
 APPNAME=$1
 export PYTHONPATH=.:./libs/:./appsrc/:./pyutils
 # logs
-export LOG_LEVEL=DEBUG
-export CLOUDAMQP_APIKEY=`heroku config:get CLOUDAMQP_APIKEY  --app $APPNAME`
-export CLOUDAMQP_URL=`heroku config:get CLOUDAMQP_URL  --app $APPNAME`
-export REDIS_URL=`heroku config:get REDIS_URL  --app $APPNAME`
-export DATABASE_URL=`heroku config:get DATABASE_URL  --app $APPNAME`
-export QUEUING_SYSTEM=`heroku config:get QUEUING_SYSTEM  --app $APPNAME`
-export SUBSCRIBE_CHANNEL=`heroku config:get SUBSCRIBE_CHANNEL  --app $APPNAME`
-export BUCKETEER_AWS_ACCESS_KEY_ID=`heroku config:get BUCKETEER_AWS_ACCESS_KEY_ID --app $APPNAME`
-export BUCKETEER_AWS_REGION=`heroku config:get BUCKETEER_AWS_REGION --app $APPNAME`
-export BUCKETEER_AWS_SECRET_ACCESS_KEY=`heroku config:get BUCKETEER_AWS_SECRET_ACCESS_KEY --app $APPNAME`
-export BUCKETEER_BUCKET_NAME=`heroku config:get BUCKETEER_BUCKET_NAME --app $APPNAME`
+export KAFKA_CLIENT_CERT=`heroku config:get KAFKA_CLIENT_CERT --app $APPNAME`
+export KAFKA_CLIENT_CERT_KEY=`heroku config:get KAFKA_CLIENT_CERT_KEY --app $APPNAME`
+export KAFKA_PREFIX=`heroku config:get KAFKA_PREFIX --app $APPNAME`
+export KAFKA_TRUSTED_CERT=`heroku config:get KAFKA_TRUSTED_CERT --app $APPNAME`
+export KAFKA_URL=`heroku config:get KAFKA_URL --app $APPNAME`
+export KAFKA_USE_GROUP='True'
+
+export QUEUING_SYSTEM='Kafka'
+export SUBSCRIBE_CHANNEL='event_push_Notification__e,my-cool-topic,my-cool-topic-2'
+export LOG_LEVEL='INFO'
+
+
+export PYTHONPATH=$PYTHONPATH:/Users/Arieunier/Documents/DEV_SRC/DistributedComputed/libs/dclibs:.:./appsrc; python appsrc/template.py
