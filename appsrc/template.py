@@ -56,8 +56,6 @@ def treatMessage(dictValue):
         # executes
         postgres.execRequest(sqlRequest, attributes, isInsert=True)
    
-   
-    # utils.serviceTracesAndNotifies(dictValue, SERVICE_NAME, SERVICE_NAME + ' - Process Ended', True)
 
 # create a function which is called on incoming messages
 def genericCallback(ch, method, properties, body):
@@ -71,7 +69,7 @@ def genericCallback(ch, method, properties, body):
         LOGGER.error(e.__str__())
 def announce():
     # sends a message to the proper rabbit mq queue to announce himself
-    queuer.sendToQueuer(SERVICE_STRUCTURE, config.SERVICE_REGISTRATION)    
+    queuer.∏(SERVICE_STRUCTURE, config.SERVICE_REGISTRATION)    
 
 
 if __name__ == "__main__":
